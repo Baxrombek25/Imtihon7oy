@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
+from .models import Journal
+from .models import JournalEntry
 
 User = get_user_model()
 
@@ -17,3 +19,24 @@ class RegisterSerializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
         return user
+class JournalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Journal
+        fields = '__all__'
+        read_only_fields = ['author']
+
+
+class JournalEntrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JournalEntry
+        fields = '__all__'
+        read_only_fields = ['user']
+
+class JournalEntrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JournalEntry
+        fields = [
+            'id', 'title_uz', 'title_ru', 'title_en',
+            'content_uz', 'content_ru', 'content_en',
+            'created_at'
+        ]
